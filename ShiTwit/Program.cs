@@ -29,7 +29,7 @@ namespace ShiTwit
             var twitterCtx = new TwitterContext(auth);
 
             //Connect to reddit
-            var webAgent = new BotWebAgent(/* nothing... */);
+            var webAgent = new BotWebAgent(/* Nothing... */);
             var reddit = new Reddit(webAgent, false);
             //Declare shitpost subs
             List<RedditSharp.Things.Subreddit> subs = new List<RedditSharp.Things.Subreddit>();
@@ -37,63 +37,56 @@ namespace ShiTwit
             subs.Add(me_irl);
             var dankMemes = reddit.GetSubreddit("/r/DankMemes");
             subs.Add(dankMemes);
-            //Get top 5 posts from each sub TODO
+            //Go through each sub in `subs`
             foreach(var sub in subs)
             {
+                //Find an image post we haven't already tweeted
                 foreach (var post in sub.Hot.Take(10))
                 {
-                    //Make sure post type is an image link
+                    //Get link to the image
                     var link = post.Url.ToString();
-                    //A post is an image link if it: ends in .png, .jpg, or contains 'i.reddituploads.com'
+                    //A post is an image link if it: ends in .png, .jpg, or /maybe/ .gif
                     if (link.Contains(".jpg") || link.Contains(".png"))
                     {
-                        //This post is an image!!!
-                        try
+                        //Get image 'name' from post link
+                        int position = link.LastIndexOf("/") + 1;
+                        var fileName = link.Substring(position, link.Length - position);
+                        //Get list of images already tweeted
+                        string[] alreadyPosted = Directory.GetFiles("img/");
+                        //Make sure this image hasn't already been downloaded
+                        bool repost = false;
+                        if (alreadyPosted.Length > 1)
                         {
-                            //Get image 'name' from post link
-                            int position = link.LastIndexOf("/") + 1;
-                            var fileName = link.Substring(position, link.Length - position);
-                            //Get list of images already tweeted
-                            string[] alreadyPosted = Directory.GetFiles("img/");
-
-                            bool repost = false;
-                            if (alreadyPosted.Length > 1)
+                            foreach (string name in alreadyPosted)
                             {
-                                foreach (string name in alreadyPosted)
+                                if (name.Contains(fileName))
                                 {
-                                    if (name.Contains(fileName))
-                                    {
-                                        repost = true;
-                                        break;
-                                    }
+                                    repost = true;
+                                    break;
                                 }
                             }
-
-                            if (!repost)
-                            {
-                                //Download image
-                                WebClient wc = new WebClient();
-                                wc.DownloadFile(link, "img/" + fileName);
-                                Console.WriteLine("Downloaded image " + fileName);
-
-                                //Tweet the image
-                                Task tweetTask = TweetWithImage(twitterCtx, "img/" + fileName, post.Title);
-                                tweetTask.Wait();
-                                break;
-                            }
-
                         }
-                        catch (System.ArgumentOutOfRangeException e)
+                        //If this image doesn't match any of the images in the img folder, repost will be false
+                        if (!repost)
                         {
-                            Console.Write(e.StackTrace);
-                        }                        
-                    }                   
-                }
-                System.Threading.Thread.Sleep(3600000);
+                            //Download image
+                            WebClient wc = new WebClient();
+                            wc.DownloadFile(link, "img/" + fileName);
+                            Console.WriteLine(sub.Name);
+                            Console.WriteLine("Downloaded image " + fileName);
+
+                            //Tweet the image
+                            Task tweetTask = TweetWithImage(twitterCtx, "img/" + fileName, post.Title, sub.Name);
+                            tweetTask.Wait();
+                            break;
+                        }
+                    }                    
+                }                   
             }
-        }
+            System.Threading.Thread.Sleep(3600000);
+        }    
             
-        static async Task TweetWithImage(TwitterContext ctx, string file, string title)
+        static async Task TweetWithImage(TwitterContext ctx, string file, string title, string sub)
         {
             string imgType;
             if (file.EndsWith(".png"))
@@ -115,8 +108,8 @@ namespace ShiTwit
                 (from tsk in imgUploadTasks
                  select tsk.Result.MediaID)
                  .ToList();
-
-            Status tweet = await ctx.TweetAsync(title, mediaIds);
+            string status = sub + " - " + title;
+            Status tweet = await ctx.TweetAsync(status, mediaIds);
 
             if (tweet != null)
                 Console.WriteLine("Tweet posted: " + tweet.Text);

@@ -5,7 +5,7 @@ I already know it's a dumb name It's also a dumb bot and It's already been done 
 These aren't really frequently asked, but these would be FAQs if people knew this existed I bet.
 
 ### What is this thing?
-It's a Twitter bot that pulls the top posts from r/me_irl every hour and tweets them out. Original amirite
+It's a Twitter bot that pulls the top posts from r/me_irl every hour and tweets them out. Original amirite????
 
 ### Why did you do this in C#??????????
 Because my software engineering professor is making us write a web app in ASP.NET and I've never used C# or Visual Studio before.
@@ -16,4 +16,4 @@ simple and just utilizes some open source API wrappers for twitter and reddit. A
 That's fair
 
 ### Can I use it?
-I don't care? 
+I don't care? Just open it in VS, install LINQToTwitter and RedditSharp from NuGet, and add your api details to the AppConfig and BotWebAgent constructor. EZPZ.
