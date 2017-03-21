@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.IO;
-using System.Collections;
 using System.Threading.Tasks;
 using System.Configuration;
 using System.Net;
 using RedditSharp;
 using LinqToTwitter;
-using ShiTwit;
 
 namespace ShiTwit
 {
@@ -32,9 +29,7 @@ namespace ShiTwit
             var twitterCtx = new TwitterContext(auth);
 
             //Connect to reddit
-            var webAgent = new BotWebAgent("shitwit_bot",
-                "", "", 
-                "", "https://www.thenightmancodeth.me/");
+            var webAgent = new BotWebAgent(/* Nothing... */);
             var reddit = new Reddit(webAgent, false);       
             //Declare shitpost subs
             var me_irl = reddit.GetSubreddit("/r/me_irl");
@@ -84,9 +79,8 @@ namespace ShiTwit
                     {
                         Console.Write(e.StackTrace);
                     }
-                    
-                }
-                System.Threading.Thread.Sleep(10800000);
+                    System.Threading.Thread.Sleep(3600000);
+                }                
             }
         }
         static async Task TweetWithImage(TwitterContext ctx, string file, string title)

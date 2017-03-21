@@ -19,3 +19,7 @@ C:\Users\Joe\Documents\Projects\ShiTwit\ShiTwit\bin\Debug\System.Reactive.Core.x
 C:\Users\Joe\Documents\Projects\ShiTwit\ShiTwit\bin\Debug\System.Reactive.Interfaces.xml
 C:\Users\Joe\Documents\Projects\ShiTwit\ShiTwit\bin\Debug\System.Reactive.Linq.xml
 C:\Users\Joe\Documents\Projects\ShiTwit\ShiTwit\bin\Debug\System.Reactive.PlatformServices.xml
+C:\Users\Joe\Documents\Projects\ShiTwit\ShiTwit\bin\Debug\ShiTwit.exe.manifest
+C:\Users\Joe\Documents\Projects\ShiTwit\ShiTwit\bin\Debug\ShiTwit.application
+C:\Users\Joe\Documents\Projects\ShiTwit\ShiTwit\obj\Debug\ShiTwit.exe.manifest
+C:\Users\Joe\Documents\Projects\ShiTwit\ShiTwit\obj\Debug\ShiTwit.application
