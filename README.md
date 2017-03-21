@@ -5,7 +5,7 @@ I already know it's a dumb name It's also a dumb bot and It's already been done 
 These aren't really frequently asked, but these would be FAQs if people knew this existed I bet.
 
 ### What is this thing?
-It's a Twitter bot that pulls the top posts from r/me_irl every hour and tweets them out. Original amirite????
+It's a Twitter bot that pulls the top posts from r/me_irl & r/DankMemes every hour and tweets them out. Original amirite????
 
 ### Why did you do this in C#??????????
 Because my software engineering professor is making us write a web app in ASP.NET and I've never used C# or Visual Studio before.
