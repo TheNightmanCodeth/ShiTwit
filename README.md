@@ -2,7 +2,7 @@
 I already know it's a dumb name It's also a dumb bot and It's already been done like a hundred times so ??????????
 
 # FAQ
-These are questions I just keep getting asked it seems like everyone is interested in my crappy reddit/twitter bot so let me answer a few
+These aren't really frequently asked, but these would be FAQs if people knew this existed I bet.
 
 ### What is this thing?
 It's a Twitter bot that pulls the top posts from r/me_irl every hour and tweets them out. Original amirite
