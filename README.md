@@ -1,4 +1,4 @@
-# ShiTwit
+# [@Shitpost4200](https://twitter.com/Shitpost4200)
 I already know it's a dumb name It's also a dumb bot and It's already been done like a hundred times so ??????????
 
 # FAQ
