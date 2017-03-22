@@ -53,24 +53,22 @@ namespace ShiTwit
                             //Get image 'name' from post link
                             int position = link.LastIndexOf("/") + 1;
                             var fileName = link.Substring(position, link.Length - position);
-                            //Get list of images already tweeted
-                            string[] alreadyPosted = Directory.GetFiles("img/");
-                            //Make sure this image hasn't already been downloaded
+                            //Read list of tweets posted to check for duplicate tweet
                             bool repost = false;
-                            if (alreadyPosted.Length > 1)
+                            foreach(string line in File.ReadLines("tweeted.txt"))
                             {
-                                foreach (string name in alreadyPosted)
+                                if(line.Contains(fileName))
                                 {
-                                    if (name.Contains(fileName))
-                                    {
-                                        repost = true;
-                                        break;
-                                    }
+                                    repost = true;
+                                    break;
                                 }
                             }
-                            //If this image doesn't match any of the images in the img folder, repost will be false
+                            //If this image doesn't match any of the lines in the file, repost will be false
                             if (!repost)
                             {
+                                //Write fileName to file
+                                StreamWriter writer = new StreamWriter("tweeted.txt");
+                                writer.WriteLine(fileName);
                                 //Download image
                                 WebClient wc = new WebClient();
                                 wc.DownloadFile(link, "img/" + fileName);
